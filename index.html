@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kangajo - kamus</title>
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-body: #0f172a;       /* Dark Blue Background */
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --card-bg: #1e293b;
+            --hover-bg: #334155;
+            
+            /* Brand Colors */
+            --html-color: #e34c26;
+            --css-color: #264de4;
+            --js-color: #f7df1e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        header { text-align: center; margin-bottom: 50px; }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- GRID MENU --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        /* --- CARD STYLE --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: var(--hover-bg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ikon Logo (Dibuat dengan CSS agar ringan) */
+        .icon-box {
+            font-size: 3rem;
+            font-weight: bold;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .card-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
+        .card-desc { color: var(--text-sub); font-size: 0.95rem; }
+
+        /* --- SPECIFIC COLORS --- */
+        /* HTML Card */
+        .card-html:hover { border-color: var(--html-color); }
+        .card-html .icon-box { color: var(--html-color); }
+        .card-html .btn-link { background: var(--html-color); }
+
+        /* CSS Card */
+        .card-css:hover { border-color: var(--css-color); }
+        .card-css .icon-box { color: var(--css-color); }
+        .card-css .btn-link { background: var(--css-color); }
+
+        /* JS Card */
+        .card-js:hover { border-color: var(--js-color); }
+        .card-js .icon-box { color: var(--js-color); }
+        .card-js .btn-link { background: var(--js-color); color: black; }
+
+
+        /* Tombol Akses di Bawah Kartu */
+        .btn-link {
+            margin-top: 20px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 60px;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1> Kangajo Developer</h1>
+        <p class="subtitle">Kumpulan referensi kode lengkap untuk HTML, CSS, dan JavaScript dalam satu tempat. Pilih bahasa yang ingin Anda pelajari.</p>
+    </header>
+
+    <div class="menu-grid">
+        
+        <a href="kamus-html.html" class="card card-html">
+            <div class="icon-box">&lt;/&gt;</div>
+            <div class="card-title">HTML 5</div>
+            <p class="card-desc">Struktur dasar halaman web. Pelajari tag, formulir, tabel, dan elemen semantik.</p>
+            <div class="btn-link">Buka Kamus HTML</div>
+        </a>
+
+        <a href="kamus-css.html" class="card card-css">
+            <div class="icon-box">#</div>
+            <div class="card-title">CSS 3</div>
+            <p class="card-desc">Mempercantik tampilan web. Pelajari layout, warna, animasi, dan responsivitas.</p>
+            <div class="btn-link">Buka Kamus CSS</div>
+        </a>
+
+        <a href="kamus-js.html" class="card card-js">
+            <div class="icon-box">{ }</div>
+            <div class="card-title">JavaScript</div>
+            <p class="card-desc">Membuat web interaktif. Pelajari logika, manipulasi DOM, dan API.</p>
+            <div class="btn-link">Buka Kamus JS</div>
+        </a>
+
+    </div>
+
+    <footer>
+        &copy; 2025 kangajo dev. Dibuat untuk memudahkan belajar.
+    </footer>
+
+</body>
+</html>
