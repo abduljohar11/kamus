@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Ultimate Reference</title>
+    <style>
+        /* --- 1. THEME: JS NIGHT --- */
+        :root {
+            --primary: #f7df1e; /* JS Yellow */
+            --bg-body: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-sub: #888;
+            --border: #333;
+            --code-bg: #000;
+            
+            /* Syntax Highlight Colors */
+            --k: #ff79c6; /* Keyword (pink) */
+            --f: #8be9fd; /* Function (cyan) */
+            --s: #f1fa8c; /* String (yellow) */
+            --n: #bd93f9; /* Number (purple) */
+            --c: #6272a4; /* Comment (grey) */
+            --o: #ffb86c; /* Operator (orange) */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* --- HEADER --- */
+        header { text-align: center; margin-bottom: 40px; padding-top: 10px; }
+        .logo { 
+            background: var(--primary); color: black; font-weight: 900; 
+            padding: 5px 15px; font-size: 2rem; border-radius: 6px; display: inline-block;
+            margin-bottom: 10px; transform: rotate(-2deg);
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 5px; letter-spacing: -1px; }
+        .stats { 
+            font-size: 0.8rem; background: #333; padding: 4px 10px; 
+            border-radius: 20px; color: #ccc; display: inline-block; margin-top: 10px;
+        }
+
+        /* --- SEARCH & NAV --- */
+        .search-container { position: relative; margin-bottom: 25px; }
+        #search {
+            width: 100%; padding: 15px 20px; background: var(--bg-card);
+            border: 1px solid var(--border); color: white; font-family: inherit;
+            font-size: 1rem; border-radius: 8px; transition: 0.3s;
+        }
+        #search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 15px rgba(247, 223, 30, 0.1); }
+
+        .nav-cats { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 40px; }
+        .btn-cat {
+            background: #222; border: 1px solid #333; color: #aaa;
+            padding: 6px 14px; cursor: pointer; border-radius: 4px; font-size: 0.85rem;
+            transition: 0.2s; font-family: inherit;
+        }
+        .btn-cat:hover { background: #333; color: white; }
+        .btn-cat.active { background: var(--primary); color: black; border-color: var(--primary); font-weight: bold; }
+
+        /* --- GRID LAYOUT --- */
+        #grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;
+            transition: transform 0.15s;
+        }
+        .card:hover { transform: translateY(-3px); border-color: #555; }
+        
+         .btn-home {
+            display: inline-flex; align-items: center; gap: 5px;
+            text-decoration: none; color: var(--primary);
+            font-weight: bold; font-size: 0.9rem;
+            margin-bottom: 20px; transition: 0.3s;
+            background: white; padding: 8px 15px; border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .btn-home:hover { background: var(--primary); color: white; }
+
+        /* Colored Top Borders */
+        .cat-syntax { border-top: 3px solid #ff79c6; }
+        .cat-dom { border-top: 3px solid #50fa7b; }
+        .cat-array { border-top: 3px solid #ffb86c; }
+        .cat-string { border-top: 3px solid #8be9fd; }
+        .cat-math { border-top: 3px solid #bd93f9; }
+        .cat-async { border-top: 3px solid #ff5555; }
+        .cat-browser { border-top: 3px solid #f1fa8c; }
+
+        .card-head { 
+            padding: 15px; border-bottom: 1px solid #252525; 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .fn-name { font-weight: bold; color: var(--primary); font-size: 1.1rem; }
+        .tag { font-size: 0.65rem; text-transform: uppercase; background: #333; padding: 2px 6px; border-radius: 3px; color: #bbb; }
+
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .desc { font-size: 0.85rem; color: #bbb; margin-bottom: 15px; line-height: 1.4; font-family: sans-serif; }
+
+        .code-block {
+            background: var(--code-bg); padding: 12px; border-radius: 6px;
+            font-size: 0.85rem; position: relative; border: 1px solid #333;
+            white-space: pre-wrap; word-break: break-all;
+        }
+
+        .copy-btn {
+            position: absolute; top: 5px; right: 5px;
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            font-size: 0.7rem; padding: 3px 8px; cursor: pointer; border-radius: 3px;
+        }
+        .copy-btn:hover { background: var(--primary); color: black; }
+
+        /* Utility Colors */
+        .k { color: var(--k); } .f { color: var(--f); } .s { color: var(--s); }
+        .n { color: var(--n); } .c { color: var(--c); } .o { color: var(--o); }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+          <a href="index.html" class="btn-home">⬅ Kembali ke Menu</a>
+    <header>
+        <div class="logo">JS</div>
+        <h1>Ultimate Reference</h1>
+        <div class="stats" id="totalCount">Loading...</div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Cari syntax... (ex: reduce, date, click, try, class)" onkeyup="filterData()">
+    </div>
+
+    <div class="nav-cats">
+        <button class="btn-cat active" onclick="setCat('semua', this)">Semua</button>
+        <button class="btn-cat" onclick="setCat('syntax', this)">Dasar & Logic</button>
+        <button class="btn-cat" onclick="setCat('dom', this)">DOM & Event</button>
+        <button class="btn-cat" onclick="setCat('array', this)">Array & Object</button>
+        <button class="btn-cat" onclick="setCat('string', this)">String & Regex</button>
+        <button class="btn-cat" onclick="setCat('math', this)">Math & Date</button>
+        <button class="btn-cat" onclick="setCat('async', this)">Async & Error</button>
+        <button class="btn-cat" onclick="setCat('browser', this)">Browser API</button>
+    </div>
+
+    <div id="grid"></div>
+</div>
+
+<script>
+    /* DATABASE LENGKAP (100+ ENTRIES)
+       Formatted manually for syntax highlighting:
+       <k>eyword, <f>unction, <s>tring, <n>umber, <c>omment, <o>perator
+    */
+    const db = [
+        // --- 1. DASAR & LOGIC (SYNTAX) ---
+        { n: "var / let / const", c: "syntax", d: "Deklarasi variabel. Gunakan 'const' by default, 'let' jika berubah.", x: `<k>const</k> pi = <n>3.14</n>;\n<k>let</k> usia = <n>20</n>;` },
+        { n: "console.log()", c: "syntax", d: "Output ke console browser (debugging).", x: `<f>console</f>.log(<s>'Cek data'</s>);` },
+        { n: "if / else if", c: "syntax", d: "Percabangan kondisi.", x: `<k>if</k> (x > <n>10</n>) { ... } <k>else</k> { ... }` },
+        { n: "switch / case", c: "syntax", d: "Percabangan banyak kondisi.", x: `<k>switch</k>(hari) {\n  <k>case</k> <s>'Senin'</s>: ...\n}` },
+        { n: "ternary operator", c: "syntax", d: "If-else satu baris.", x: `<k>const</k> status = usia >= <n>18</n> ? <s>'Dewasa'</s> : <s>'Anak'</s>;` },
+        { n: "for loop", c: "syntax", d: "Perulangan klasik.", x: `<k>for</k>(<k>let</k> i=<n>0</n>; i<<n>5</n>; i++) { ... }` },
+        { n: "for...of", c: "syntax", d: "Looping isi array (Modern).", x: `<k>for</k>(<k>const</k> item <k>of</k> array) { ... }` },
+        { n: "for...in", c: "syntax", d: "Looping properti object.", x: `<k>for</k>(<k>const</k> key <k>in</k> object) { ... }` },
+        { n: "while", c: "syntax", d: "Looping selama kondisi benar.", x: `<k>while</k>(hidup) { <f>nafas</f>(); }` },
+        { n: "function", c: "syntax", d: "Fungsi biasa.", x: `<k>function</k> <f>nama</f>() { ... }` },
+        { n: "arrow function", c: "syntax", d: "Fungsi panah (ES6).", x: `<k>const</k> <f>add</f> = (a,b) => a + b;` },
+        { n: "class", c: "syntax", d: "Template objek (OOP).", x: `<k>class</k> Mobil { ... }` },
+        { n: "import / export", c: "syntax", d: "Modular javascript.", x: `<k>import</k> { data } <k>from</k> <s>'./file.js'</s>;` },
+        { n: "spread operator (...)", c: "syntax", d: "Membongkar array/objek.", x: `<k>const</k> baru = [...lama, <s>'item'</s>];` },
+        { n: "destructuring", c: "syntax", d: "Ekstrak nilai array/objek ke variabel.", x: `<k>const</k> { nama, umur } = user;` },
+        { n: "typeof", c: "syntax", d: "Cek tipe data.", x: `<f>typeof</f> <s>'teks'</s>; <c>// 'string'</c>` },
+
+        // --- 2. DOM & EVENT ---
+        { n: "document.querySelector()", c: "dom", d: "Pilih 1 elemen (CSS Selector).", x: `<k>const</k> el = <f>document</f>.querySelector(<s>'.box'</s>);` },
+        { n: "document.querySelectorAll()", c: "dom", d: "Pilih SEMUA elemen (Array-like).", x: `<k>const</k> list = <f>document</f>.querySelectorAll(<s>'li'</s>);` },
+        { n: "getElementById()", c: "dom", d: "Pilih elemen by ID.", x: `<f>document</f>.getElementById(<s>'judul'</s>);` },
+        { n: "innerHTML", c: "dom", d: "Set konten HTML.", x: `el.innerHTML = <s>'<b>Tebal</b>'</s>;` },
+        { n: "innerText", c: "dom", d: "Set konten teks saja.", x: `el.innerText = <s>'Halo'</s>;` },
+        { n: "classList.add/remove", c: "dom", d: "Manipulasi class CSS.", x: `el.classList.<f>add</f>(<s>'active'</s>);` },
+        { n: "classList.toggle", c: "dom", d: "Switch class on/off.", x: `el.classList.<f>toggle</f>(<s>'dark'</s>);` },
+        { n: "style", c: "dom", d: "Ubah CSS inline.", x: `el.style.backgroundColor = <s>'red'</s>;` },
+        { n: "setAttribute()", c: "dom", d: "Ubah atribut tag.", x: `img.<f>setAttribute</f>(<s>'src'</s>, <s>'pic.jpg'</s>);` },
+        { n: "createElement()", c: "dom", d: "Bikin elemen baru.", x: `<k>const</k> div = <f>document</f>.createElement(<s>'div'</s>);` },
+        { n: "appendChild()", c: "dom", d: "Masukin elemen ke dalam elemen lain.", x: `body.<f>appendChild</f>(div);` },
+        { n: "remove()", c: "dom", d: "Hapus elemen.", x: `el.<f>remove</f>();` },
+        { n: "addEventListener()", c: "dom", d: "Pasang event listener.", x: `btn.<f>addEventListener</f>(<s>'click'</s>, run);` },
+        { n: "event.target", c: "dom", d: "Elemen yang diklik.", x: `e.target.style.color = <s>'red'</s>;` },
+        { n: "event.preventDefault()", c: "dom", d: "Cegah aksi default (submit form/link).", x: `e.<f>preventDefault</f>();` },
+        { n: "value", c: "dom", d: "Ambil isi input form.", x: `<k>const</k> isi = inputNama.value;` },
+
+        // --- 3. ARRAY & OBJECT ---
+        { n: "length", c: "array", d: "Jumlah item array.", x: `arr.length;` },
+        { n: "push()", c: "array", d: "Tambah item di AKHIR.", x: `arr.<f>push</f>(<s>'Baru'</s>);` },
+        { n: "pop()", c: "array", d: "Hapus item TERAKHIR.", x: `arr.<f>pop</f>();` },
+        { n: "unshift()", c: "array", d: "Tambah item di AWAL.", x: `arr.<f>unshift</f>(<s>'Pertama'</s>);` },
+        { n: "shift()", c: "array", d: "Hapus item PERTAMA.", x: `arr.<f>shift</f>();` },
+        { n: "map()", c: "array", d: "Ubah semua item array -> array baru.", x: `arr.<f>map</f>(item => item * <n>2</n>);` },
+        { n: "filter()", c: "array", d: "Ambil item yang lolos syarat.", x: `arr.<f>filter</f>(user => user.age > <n>18</n>);` },
+        { n: "reduce()", c: "array", d: "Hitung total/akumulasi array.", x: `arr.<f>reduce</f>((total, n) => total + n, <n>0</n>);` },
+        { n: "forEach()", c: "array", d: "Looping array (tidak return).", x: `arr.<f>forEach</f>(item => <f>log</f>(item));` },
+        { n: "find()", c: "array", d: "Cari 1 item pertama.", x: `arr.<f>find</f>(x => x.id === <n>1</n>);` },
+        { n: "includes()", c: "array", d: "Cek apakah ada item tertentu.", x: `arr.<f>includes</f>(<s>'Apel'</s>);` },
+        { n: "join()", c: "array", d: "Gabung array jadi string.", x: `arr.<f>join</f>(<s>', '</s>);` },
+        { n: "slice()", c: "array", d: "Potong array (copy).", x: `arr.<f>slice</f>(<n>0</n>, <n>2</n>);` },
+        { n: "splice()", c: "array", d: "Potong/Ganti isi array (edit).", x: `arr.<f>splice</f>(<n>1</n>, <n>1</n>); <c>// Hapus index 1</c>` },
+        { n: "sort()", c: "array", d: "Urutkan array.", x: `arr.<f>sort</f>();` },
+        { n: "Object.keys()", c: "array", d: "Ambil nama properti objek.", x: `<f>Object</f>.keys(user);` },
+        { n: "Object.values()", c: "array", d: "Ambil nilai properti objek.", x: `<f>Object</f>.values(user);` },
+
+        // --- 4. STRING & REGEX ---
+        { n: "length", c: "string", d: "Panjang karakter.", x: `text.length;` },
+        { n: "toUpperCase()", c: "string", d: "Huruf KAPITAL.", x: `text.<f>toUpperCase</f>();` },
+        { n: "toLowerCase()", c: "string", d: "Huruf kecil.", x: `text.<f>toLowerCase</f>();` },
+        { n: "includes()", c: "string", d: "Cek apakah mengandung kata.", x: `text.<f>includes</f>(<s>'@'</s>);` },
+        { n: "replace()", c: "string", d: "Ganti teks.", x: `text.<f>replace</f>(<s>'a'</s>, <s>'o'</s>);` },
+        { n: "replaceAll()", c: "string", d: "Ganti SEMUA teks.", x: `text.<f>replaceAll</f>(<s>' '</s>, <s>'-'</s>);` },
+        { n: "split()", c: "string", d: "Pecah string jadi array.", x: `text.<f>split</f>(<s>','</s>);` },
+        { n: "trim()", c: "string", d: "Hapus spasi di awal/akhir.", x: `text.<f>trim</f>();` },
+        { n: "substring()", c: "string", d: "Ambil sebagian teks.", x: `text.<f>substring</f>(<n>0</n>, <n>5</n>);` },
+        { n: "Template Literal", c: "string", d: "String dinamis (backtick).", x: `<s>\`Halo \${nama}\`</s>;` },
+        { n: "Regex test()", c: "string", d: "Cek pola regex (email/angka).", x: `/^[0-9]+$/.<f>test</f>(input);` },
+
+        // --- 5. MATH & DATE ---
+        { n: "Math.round()", c: "math", d: "Bulatkan angka.", x: `<f>Math</f>.round(<n>4.6</n>); <c>// 5</c>` },
+        { n: "Math.floor()", c: "math", d: "Bulatkan ke BAWAH.", x: `<f>Math</f>.floor(<n>4.9</n>); <c>// 4</c>` },
+        { n: "Math.ceil()", c: "math", d: "Bulatkan ke ATAS.", x: `<f>Math</f>.ceil(<n>4.1</n>); <c>// 5</c>` },
+        { n: "Math.random()", c: "math", d: "Angka acak 0-1.", x: `<f>Math</f>.random();` },
+        { n: "Math.max()", c: "math", d: "Nilai tertinggi.", x: `<f>Math</f>.max(<n>10</n>, <n>20</n>, <n>5</n>);` },
+        { n: "Math.min()", c: "math", d: "Nilai terendah.", x: `<f>Math</f>.min(<n>10</n>, <n>20</n>);` },
+        { n: "Math.abs()", c: "math", d: "Nilai absolut (positif).", x: `<f>Math</f>.abs(-<n>50</n>);` },
+        { n: "parseInt()", c: "math", d: "Ubah text ke integer.", x: `<f>parseInt</f>(<s>'100px'</s>);` },
+        { n: "parseFloat()", c: "math", d: "Ubah text ke desimal.", x: `<f>parseFloat</f>(<s>'3.14'</s>);` },
+        { n: "toFixed()", c: "math", d: "Format desimal.", x: `harga.<f>toFixed</f>(<n>2</n>);` },
+        { n: "new Date()", c: "math", d: "Objek waktu sekarang.", x: `<k>const</k> now = <k>new</k> <f>Date</f>();` },
+        { n: "getFullYear()", c: "math", d: "Ambil tahun.", x: `now.<f>getFullYear</f>();` },
+        { n: "toISOString()", c: "math", d: "Format waktu standar DB.", x: `now.<f>toISOString</f>();` },
+
+        // --- 6. ASYNC & ERROR ---
+        { n: "setTimeout()", c: "async", d: "Jeda waktu sekali.", x: `<f>setTimeout</f>(() => {}, <n>1000</n>);` },
+        { n: "setInterval()", c: "async", d: "Looping waktu.", x: `<f>setInterval</f>(() => {}, <n>1000</n>);` },
+        { n: "fetch()", c: "async", d: "Request HTTP (API).", x: `<f>fetch</f>(url).<f>then</f>(res => res.json());` },
+        { n: "async / await", c: "async", d: "Async modern.", x: `<k>async function</k> <f>go</f>() {\n  <k>await</k> <f>fetch</f>(...);\n}` },
+        { n: "Promise", c: "async", d: "Janji proses async.", x: `<k>new</k> <f>Promise</f>((resolve, reject) => ...)` },
+        { n: "try ... catch", c: "async", d: "Tangkap error agar tidak crash.", x: `<k>try</k> { ... } <k>catch</k>(err) { ... }` },
+        { n: "JSON.parse()", c: "async", d: "String JSON -> Object.", x: `<f>JSON</f>.parse(str);` },
+        { n: "JSON.stringify()", c: "async", d: "Object -> String JSON.", x: `<f>JSON</f>.stringify(obj);` },
+
+        // --- 7. BROWSER API ---
+        { n: "localStorage", c: "browser", d: "Simpan data permanen.", x: `<f>localStorage</f>.setItem(<s>'key'</s>, <s>'val'</s>);` },
+        { n: "sessionStorage", c: "browser", d: "Simpan data sesi (hilang saat tutup).", x: `<f>sessionStorage</f>.getItem(<s>'key'</s>);` },
+        { n: "window.location", c: "browser", d: "Redirect URL.", x: `<f>window</f>.location.href = <s>'/home'</s>;` },
+        { n: "window.open()", c: "browser", d: "Buka tab baru.", x: `<f>window</f>.open(url);` },
+        { n: "window.scrollTo()", c: "browser", d: "Scroll layar.", x: `<f>window</f>.scrollTo(<n>0</n>, <n>0</n>);` },
+        { n: "navigator.clipboard", c: "browser", d: "Copy text.", x: `<f>navigator</f>.clipboard.writeText(<s>'Salin'</s>);` },
+        { n: "history.back()", c: "browser", d: "Kembali ke halaman sebelumnya.", x: `<f>history</f>.back();` },
+        { n: "alert()", c: "browser", d: "Popup pesan.", x: `<f>alert</f>(<s>'Halo'</s>);` },
+        { n: "confirm()", c: "browser", d: "Popup Ya/Tidak.", x: `<k>if</k>(<f>confirm</f>(<s>'Hapus?'</s>)) ...` },
+        { n: "prompt()", c: "browser", d: "Popup input.", x: `<k>const</k> nama = <f>prompt</f>(<s>'Siapa?'</s>);` }
+    ];
+
+    // --- LOGIC ---
+    let activeCat = 'semua';
+    document.getElementById('totalCount').innerText = `${db.length} Perintah`;
+
+    function render(data) {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = "";
+
+        if(data.length === 0) {
+            grid.innerHTML = "<div style='color:#777; grid-column:1/-1; text-align:center; padding:30px;'>Tidak ditemukan.</div>";
+            return;
+        }
+
+        data.forEach(item => {
+            // Create raw text for copying
+            const temp = document.createElement('div');
+            temp.innerHTML = item.x;
+            const rawText = temp.textContent;
+
+            grid.innerHTML += `
+            <div class="card cat-${item.c}">
+                <div class="card-head">
+                    <span class="fn-name">${item.n}</span>
+                    <span class="tag">${item.c}</span>
+                </div>
+                <div class="card-body">
+                    <p class="desc">${item.d}</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyText(this, \`${rawText.replace(/`/g, "\\`")}\`)">Copy</button>
+                        ${item.x}
+                    </div>
+                </div>
+            </div>`;
+        });
+    }
+
+    function filterData() {
+        const key = document.getElementById('search').value.toLowerCase();
+        const res = db.filter(i => {
+            const catOk = activeCat === 'semua' || i.c === activeCat;
+            const keyOk = i.n.toLowerCase().includes(key) || i.d.toLowerCase().includes(key);
+            return catOk && keyOk;
+        });
+        render(res);
+    }
+
+    function setCat(cat, btn) {
+        activeCat = cat;
+        document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterData();
+    }
+
+    function copyText(btn, txt) {
+        navigator.clipboard.writeText(txt);
+        btn.innerText = "Copied!";
+        btn.style.color = "#f7df1e";
+        setTimeout(() => {
+            btn.innerText = "Copy";
+            btn.style.color = "white";
+        }, 1500);
+    }
+
+    // Init
+    render(db);
+</script>
+
+</body>
+</html>

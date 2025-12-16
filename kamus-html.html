@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamus HTML Lengkap</title>
+    <style>
+        /* --- 1. CSS RESET & VARIABEL (TEMA HTML ORANGE) --- */
+        :root {
+            --primary: #e34c26; /* HTML5 Orange */
+            --primary-dark: #c73e1d;
+            --bg-body: #fff7f5;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #ffccbc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* --- 2. HEADER & STATS --- */
+        header { text-align: center; margin-bottom: 30px; }
+        
+        h1 { 
+            color: var(--primary); 
+            margin-bottom: 5px; 
+            font-size: 2.5rem; 
+            font-weight: 800;
+        }
+        
+        /* Badge Penghitung Jumlah Data */
+        .stats-badge {
+            display: inline-block;
+            background: #ffe0d6;
+            color: var(--primary-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        p.subtitle { color: var(--text-sub); }
+
+        /* --- 3. PENCARIAN & NAVIGASI --- */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        input#search {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        input#search:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(227, 76, 38, 0.1);
+        }
+
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-cat {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-sub);
+            transition: 0.2s;
+        }
+
+        .btn-cat:hover { background: #fff0eb; color: var(--primary); border-color: var(--primary); }
+        
+        .btn-cat.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(227, 76, 38, 0.3);
+        }
+
+         .btn-home {
+            display: inline-flex; align-items: center; gap: 5px;
+            text-decoration: none; color: var(--primary);
+            font-weight: bold; font-size: 0.9rem;
+            margin-bottom: 20px; transition: 0.3s;
+            background: white; padding: 8px 15px; border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .btn-home:hover { background: var(--primary); color: white; }
+
+
+        /* --- 4. KARTU TAG (GRID LAYOUT) --- */
+        #tag-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid transparent;
+            border: 1px solid #f1f1f1;
+        }
+
+        .card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--border-color);}
+
+        /* Warna border atas berdasarkan kategori */
+        .card.cat-struktur { border-top: 4px solid #3b82f6; } 
+        .card.cat-teks { border-top: 4px solid #10b981; }     
+        .card.cat-media { border-top: 4px solid #8b5cf6; }    
+        .card.cat-form { border-top: 4px solid #f59e0b; }     
+        .card.cat-tabel { border-top: 4px solid #06b6d4; }    
+        .card.cat-lainnya { border-top: 4px solid #64748b; }  
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .tag-title {
+            font-family: 'Consolas', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: #fff0eb;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-usang { background: #fee2e2; color: #dc2626; }
+        .badge-std { background: #f1f5f9; color: #475569; }
+
+        .desc {
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        /* --- 5. CODE BLOCK --- */
+        .code-box {
+            background: var(--code-bg);
+            border-radius: 6px;
+            padding: 12px;
+            position: relative;
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+            color: var(--code-text);
+            font-size: 0.85rem;
+            display: block;
+            white-space: pre-wrap; 
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.3); }
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+      <a href="index.html" class="btn-home">⬅ Kembali ke Menu</a>
+    <header>
+        <h1>&lt;Kamus HTML /&gt;</h1>
+        <div class="stats-badge" id="totalCount">Loading Data...</div>
+        <p class="subtitle">Ensiklopedia lengkap tag kode untuk Web Developer</p>
+    </header>
+
+    <div class="search-wrapper">
+        <input type="text" id="search" placeholder="Cari tag, fungsi, atau kategori..." onkeyup="updateTampilan()">
+    </div>
+
+    <div class="category-nav">
+        <button class="btn-cat active" onclick="pilihKategori('semua', this)">Semua</button>
+        <button class="btn-cat" onclick="pilihKategori('struktur', this)">Struktur</button>
+        <button class="btn-cat" onclick="pilihKategori('teks', this)">Teks</button>
+        <button class="btn-cat" onclick="pilihKategori('media', this)">Media</button>
+        <button class="btn-cat" onclick="pilihKategori('form', this)">Formulir</button>
+        <button class="btn-cat" onclick="pilihKategori('tabel', this)">Tabel</button>
+        <button class="btn-cat" onclick="pilihKategori('lainnya', this)">Lainnya</button>
+    </div>
+
+    <div id="tag-container">
+        </div>
+</div>
+
+<script>
+    // --- DATABASE LENGKAP (Fixed Script Tag) ---
+    const databaseTag = [
+        // STRUKTUR & META
+        { tag: "", kategori: "struktur", fungsi: "Komentar (tidak tampil di browser).", contoh: "" },
+        { tag: "<!DOCTYPE>", kategori: "struktur", fungsi: "Definisi tipe dokumen HTML5.", contoh: "<!DOCTYPE html>" },
+        { tag: "<html>", kategori: "struktur", fungsi: "Root elemen halaman web.", contoh: "<html>...</html>" },
+        { tag: "<head>", kategori: "struktur", fungsi: "Wadah metadata.", contoh: "<head><title>...</title></head>" },
+        { tag: "<body>", kategori: "struktur", fungsi: "Wadah konten utama.", contoh: "<body><h1>Halo</h1></body>" },
+        { tag: "<meta>", kategori: "struktur", fungsi: "Metadata (charset, viewport).", contoh: "<meta charset='UTF-8'>" },
+        { tag: "<title>", kategori: "struktur", fungsi: "Judul tab browser.", contoh: "<title>Home</title>" },
+        { tag: "<link>", kategori: "struktur", fungsi: "Hubungkan CSS/icon.", contoh: "<link rel='stylesheet' href='a.css'>" },
+        { tag: "<style>", kategori: "struktur", fungsi: "CSS internal.", contoh: "<style>body{color:red}</style>" },
+        { tag: "<script>", kategori: "struktur", fungsi: "Script JavaScript.", contoh: "<script>alert('Hi')<\/script>" },
+        { tag: "<base>", kategori: "struktur", fungsi: "URL dasar untuk semua link.", contoh: "<base href='https://web.com/'>" },
+        { tag: "<div>", kategori: "struktur", fungsi: "Kontainer blok generik.", contoh: "<div class='box'>...</div>" },
+        { tag: "<span>", kategori: "struktur", fungsi: "Kontainer inline generik.", contoh: "<span class='red'>Text</span>" },
+        { tag: "<header>", kategori: "struktur", fungsi: "Kepala halaman/artikel.", contoh: "<header>Logo</header>" },
+        { tag: "<footer>", kategori: "struktur", fungsi: "Kaki halaman.", contoh: "<footer>Copyright</footer>" },
+        { tag: "<main>", kategori: "struktur", fungsi: "Konten utama.", contoh: "<main>...</main>" },
+        { tag: "<section>", kategori: "struktur", fungsi: "Bagian dokumen.", contoh: "<section>...</section>" },
+        { tag: "<article>", kategori: "struktur", fungsi: "Artikel independen.", contoh: "<article>...</article>" },
+        { tag: "<aside>", kategori: "struktur", fungsi: "Sidebar/konten samping.", contoh: "<aside>...</aside>" },
+        { tag: "<nav>", kategori: "struktur", fungsi: "Navigasi menu.", contoh: "<nav><a href='#'>Home</a></nav>" },
+        { tag: "<hr>", kategori: "struktur", fungsi: "Garis horizontal.", contoh: "<hr>" },
+        { tag: "<br>", kategori: "struktur", fungsi: "Ganti baris.", contoh: "Baris 1<br>Baris 2" },
+        
+        // TEKS
+        { tag: "<h1>-<h6>", kategori: "teks", fungsi: "Judul (Heading).", contoh: "<h1>Judul</h1>" },
+        { tag: "<p>", kategori: "teks", fungsi: "Paragraf.", contoh: "<p>Teks...</p>" },
+        { tag: "<a>", kategori: "teks", fungsi: "Link (Anchor).", contoh: "<a href='#'>Klik</a>" },
+        { tag: "<b>", kategori: "teks", fungsi: "Bold (Tebal).", contoh: "<b>Tebal</b>" },
+        { tag: "<strong>", kategori: "teks", fungsi: "Penting (Tebal).", contoh: "<strong>Penting</strong>" },
+        { tag: "<i>", kategori: "teks", fungsi: "Italic (Miring).", contoh: "<i>Miring</i>" },
+        { tag: "<em>", kategori: "teks", fungsi: "Penekanan (Miring).", contoh: "<em>Tekan</em>" },
+        { tag: "<u>", kategori: "teks", fungsi: "Underline (Garis bawah).", contoh: "<u>Garis</u>" },
+        { tag: "<s>", kategori: "teks", fungsi: "Strikethrough (Coret).", contoh: "<s>Salah</s>" },
+        { tag: "<small>", kategori: "teks", fungsi: "Teks kecil.", contoh: "<small>Info</small>" },
+        { tag: "<sub>", kategori: "teks", fungsi: "Subscript (Bawah).", contoh: "H<sub>2</sub>O" },
+        { tag: "<sup>", kategori: "teks", fungsi: "Superscript (Atas).", contoh: "10<sup>2</sup>" },
+        { tag: "<blockquote>", kategori: "teks", fungsi: "Kutipan blok.", contoh: "<blockquote>...</blockquote>" },
+        { tag: "<q>", kategori: "teks", fungsi: "Kutipan pendek.", contoh: "<q>Kutipan</q>" },
+        { tag: "<abbr>", kategori: "teks", fungsi: "Singkatan.", contoh: "<abbr title='World Health'>WHO</abbr>" },
+        { tag: "<address>", kategori: "teks", fungsi: "Kontak info.", contoh: "<address>Jl. A No 1</address>" },
+        { tag: "<code>", kategori: "teks", fungsi: "Kode komputer.", contoh: "<code>print()</code>" },
+        { tag: "<pre>", kategori: "teks", fungsi: "Teks preformatted.", contoh: "<pre>  Spasi  </pre>" },
+        { tag: "<mark>", kategori: "teks", fungsi: "Highlight teks.", contoh: "<mark>Kuning</mark>" },
+        { tag: "<time>", kategori: "teks", fungsi: "Waktu/tanggal.", contoh: "<time>10:00</time>" },
+        { tag: "<ul>", kategori: "teks", fungsi: "List bullet.", contoh: "<ul><li>A</li></ul>" },
+        { tag: "<ol>", kategori: "teks", fungsi: "List angka.", contoh: "<ol><li>1</li></ol>" },
+        { tag: "<li>", kategori: "teks", fungsi: "Item list.", contoh: "<li>Item</li>" },
+        { tag: "<dl>", kategori: "teks", fungsi: "List deskripsi.", contoh: "<dl>...</dl>" },
+        { tag: "<dt>", kategori: "teks", fungsi: "Istilah (Term).", contoh: "<dt>Kopi</dt>" },
+        { tag: "<dd>", kategori: "teks", fungsi: "Penjelasan (Desc).", contoh: "<dd>Hitam</dd>" },
+        { tag: "<del>", kategori: "teks", fungsi: "Teks dihapus.", contoh: "<del>Hapus</del>" },
+        { tag: "<ins>", kategori: "teks", fungsi: "Teks disisipkan.", contoh: "<ins>Baru</ins>" },
+        { tag: "<kbd>", kategori: "teks", fungsi: "Input keyboard.", contoh: "<kbd>Ctrl</kbd>" },
+        { tag: "<samp>", kategori: "teks", fungsi: "Output program.", contoh: "<samp>Error</samp>" },
+        { tag: "<var>", kategori: "teks", fungsi: "Variabel.", contoh: "<var>x</var>" },
+        { tag: "<cite>", kategori: "teks", fungsi: "Judul karya.", contoh: "<cite>Harry Potter</cite>" },
+        { tag: "<dfn>", kategori: "teks", fungsi: "Definisi istilah.", contoh: "<dfn>HTML</dfn>" },
+        { tag: "<bdi>", kategori: "teks", fungsi: "Isolasi arah teks.", contoh: "<bdi>User</bdi>" },
+        { tag: "<bdo>", kategori: "teks", fungsi: "Override arah teks.", contoh: "<bdo dir='rtl'>Teks</bdo>" },
+        { tag: "<ruby>", kategori: "teks", fungsi: "Anotasi Ruby (Asia).", contoh: "<ruby>漢<rt>kan</rt></ruby>" },
+        { tag: "<rt>", kategori: "teks", fungsi: "Teks ruby.", contoh: "<rt>baca</rt>" },
+        { tag: "<rp>", kategori: "teks", fungsi: "Kurung ruby.", contoh: "<rp>(</rp>" },
+        { tag: "<wbr>", kategori: "teks", fungsi: "Peluang putus kata.", contoh: "Word<wbr>Break" },
+
+        // MEDIA
+        { tag: "<img>", kategori: "media", fungsi: "Gambar.", contoh: "<img src='a.jpg'>" },
+        { tag: "<audio>", kategori: "media", fungsi: "Suara.", contoh: "<audio controls src='a.mp3'></audio>" },
+        { tag: "<video>", kategori: "media", fungsi: "Video.", contoh: "<video controls src='v.mp4'></video>" },
+        { tag: "<source>", kategori: "media", fungsi: "Sumber media.", contoh: "<source src='a.ogg'>" },
+        { tag: "<track>", kategori: "media", fungsi: "Subtitle.", contoh: "<track src='sub.vtt'>" },
+        { tag: "<iframe>", kategori: "media", fungsi: "Frame eksternal.", contoh: "<iframe src='url'></iframe>" },
+        { tag: "<embed>", kategori: "media", fungsi: "Embed konten.", contoh: "<embed src='game.swf'>" },
+        { tag: "<object>", kategori: "media", fungsi: "Objek eksternal.", contoh: "<object data='file.pdf'></object>" },
+        { tag: "<canvas>", kategori: "media", fungsi: "Grafis JS.", contoh: "<canvas id='c'></canvas>" },
+        { tag: "<svg>", kategori: "media", fungsi: "Vektor grafis.", contoh: "<svg>...</svg>" },
+        { tag: "<figure>", kategori: "media", fungsi: "Gambar dengan caption.", contoh: "<figure>...</figure>" },
+        { tag: "<figcaption>", kategori: "media", fungsi: "Caption gambar.", contoh: "<figcaption>...</figcaption>" },
+        { tag: "<map>", kategori: "media", fungsi: "Peta gambar.", contoh: "<map name='p'>...</map>" },
+        { tag: "<area>", kategori: "media", fungsi: "Area klik peta.", contoh: "<area shape='rect'>" },
+        { tag: "<picture>", kategori: "media", fungsi: "Gambar responsif.", contoh: "<picture>...</picture>" },
+
+        // FORM
+        { tag: "<form>", kategori: "form", fungsi: "Wadah formulir.", contoh: "<form action='/go'>" },
+        { tag: "<input>", kategori: "form", fungsi: "Input data.", contoh: "<input type='text'>" },
+        { tag: "<textarea>", kategori: "form", fungsi: "Area teks panjang.", contoh: "<textarea>...</textarea>" },
+        { tag: "<button>", kategori: "form", fungsi: "Tombol.", contoh: "<button>Klik</button>" },
+        { tag: "<select>", kategori: "form", fungsi: "Dropdown.", contoh: "<select><option>A</option></select>" },
+        { tag: "<option>", kategori: "form", fungsi: "Pilihan dropdown.", contoh: "<option>1</option>" },
+        { tag: "<optgroup>", kategori: "form", fungsi: "Grup pilihan.", contoh: "<optgroup label='A'>...</optgroup>" },
+        { tag: "<label>", kategori: "form", fungsi: "Label input.", contoh: "<label>Nama:</label>" },
+        { tag: "<fieldset>", kategori: "form", fungsi: "Grup elemen form.", contoh: "<fieldset>...</fieldset>" },
+        { tag: "<legend>", kategori: "form", fungsi: "Judul fieldset.", contoh: "<legend>Info</legend>" },
+        { tag: "<datalist>", kategori: "form", fungsi: "Saran input.", contoh: "<datalist id='list'>...</datalist>" },
+        { tag: "<output>", kategori: "form", fungsi: "Hasil kalkulasi.", contoh: "<output>10</output>" },
+        { tag: "<progress>", kategori: "form", fungsi: "Progress bar.", contoh: "<progress value='50' max='100'>" },
+        { tag: "<meter>", kategori: "form", fungsi: "Pengukuran.", contoh: "<meter value='2' max='10'>" },
+
+        // TABEL
+        { tag: "<table>", kategori: "tabel", fungsi: "Tabel data.", contoh: "<table>...</table>" },
+        { tag: "<tr>", kategori: "tabel", fungsi: "Baris tabel.", contoh: "<tr>...</tr>" },
+        { tag: "<td>", kategori: "tabel", fungsi: "Sel data.", contoh: "<td>Data</td>" },
+        { tag: "<th>", kategori: "tabel", fungsi: "Sel judul.", contoh: "<th>Judul</th>" },
+        { tag: "<thead>", kategori: "tabel", fungsi: "Kepala tabel.", contoh: "<thead>...</thead>" },
+        { tag: "<tbody>", kategori: "tabel", fungsi: "Badan tabel.", contoh: "<tbody>...</tbody>" },
+        { tag: "<tfoot>", kategori: "tabel", fungsi: "Kaki tabel.", contoh: "<tfoot>...</tfoot>" },
+        { tag: "<caption>", kategori: "tabel", fungsi: "Judul tabel.", contoh: "<caption>Judul</caption>" },
+        { tag: "<col>", kategori: "tabel", fungsi: "Properti kolom.", contoh: "<col span='2'>" },
+        { tag: "<colgroup>", kategori: "tabel", fungsi: "Grup kolom.", contoh: "<colgroup>...</colgroup>" },
+
+        // LAINNYA & INTERAKTIF
+        { tag: "<details>", kategori: "lainnya", fungsi: "Widget buka-tutup.", contoh: "<details>...</details>" },
+        { tag: "<summary>", kategori: "lainnya", fungsi: "Judul details.", contoh: "<summary>Klik</summary>" },
+        { tag: "<dialog>", kategori: "lainnya", fungsi: "Dialog popup.", contoh: "<dialog>...</dialog>" },
+        { tag: "<template>", kategori: "lainnya", fungsi: "Template JS.", contoh: "<template>...</template>" },
+        { tag: "<data>", kategori: "lainnya", fungsi: "Data mesin.", contoh: "<data value='1'>Satu</data>" },
+        { tag: "<search>", kategori: "lainnya", fungsi: "Wadah pencarian.", contoh: "<search>...</search>" },
+
+        // USANG / DEPRECATED
+        { tag: "<center>", kategori: "lainnya", fungsi: "[USANG] Rata tengah. Gunakan CSS.", contoh: "<center>...</center>" },
+        { tag: "<font>", kategori: "lainnya", fungsi: "[USANG] Font. Gunakan CSS.", contoh: "<font color='red'>" },
+        { tag: "<strike>", kategori: "lainnya", fungsi: "[USANG] Coret. Gunakan del/s.", contoh: "<strike>...</strike>" },
+        { tag: "<tt>", kategori: "lainnya", fungsi: "[USANG] Teletype.", contoh: "<tt>...</tt>" },
+        { tag: "<big>", kategori: "lainnya", fungsi: "[USANG] Text besar.", contoh: "<big>...</big>" },
+        { tag: "<basefont>", kategori: "lainnya", fungsi: "[USANG] Base font.", contoh: "-" },
+        { tag: "<applet>", kategori: "lainnya", fungsi: "[USANG] Applet Java.", contoh: "-" },
+        { tag: "<acronym>", kategori: "lainnya", fungsi: "[USANG] Akronim.", contoh: "-" },
+        { tag: "<dir>", kategori: "lainnya", fungsi: "[USANG] Directory list.", contoh: "-" },
+        { tag: "<frame>", kategori: "lainnya", fungsi: "[USANG] Frame.", contoh: "-" },
+        { tag: "<frameset>", kategori: "lainnya", fungsi: "[USANG] Frameset.", contoh: "-" },
+        { tag: "<noframes>", kategori: "lainnya", fungsi: "[USANG] No frames.", contoh: "-" },
+        { tag: "<noscript>", kategori: "lainnya", fungsi: "Alternatif tanpa JS.", contoh: "<noscript>...</noscript>" },
+        { tag: "<param>", kategori: "lainnya", fungsi: "Parameter object.", contoh: "<param name='x'>" }
+    ];
+
+    // --- LOGIC PROGRAM ---
+    
+    // 1. UPDATE COUNTER (FITUR BARU)
+    document.getElementById('totalCount').innerText = `Total: ${databaseTag.length} Tag HTML`;
+
+    let kategoriAktif = 'semua';
+
+    function renderData(data) {
+        const container = document.getElementById('tag-container');
+        container.innerHTML = "";
+
+        if(data.length === 0) {
+            container.innerHTML = "<div style='grid-column: 1/-1; text-align:center; color:#64748b; margin-top:30px;'>Tidak ditemukan tag yang cocok.</div>";
+            return;
+        }
+
+        data.forEach(item => {
+            const isUsang = item.fungsi.includes("[USANG]");
+            const badgeClass = isUsang ? "badge-usang" : "badge-std";
+            const badgeText = isUsang ? "DEPRECATED" : item.kategori;
+
+            const cardHTML = `
+                <div class="card cat-${item.kategori}">
+                    <div class="card-header">
+                        <span class="tag-title">&lt;${item.tag.replace(/[<>]/g, "")}&gt;</span>
+                        <span class="badge ${badgeClass}">${badgeText}</span>
+                    </div>
+                    <p class="desc">${item.fungsi}</p>
+                    <div class="code-box">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <code>${item.contoh.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
+        });
+    }
+
+    function updateTampilan() {
+        const keyword = document.getElementById('search').value.toLowerCase();
+        
+        const hasilFilter = databaseTag.filter(item => {
+            const cekKategori = (kategoriAktif === 'semua') || (item.kategori === kategoriAktif);
+            const cekKeyword = item.tag.toLowerCase().includes(keyword) || 
+                               item.fungsi.toLowerCase().includes(keyword) ||
+                               item.kategori.toLowerCase().includes(keyword);
+
+            return cekKategori && cekKeyword;
+        });
+
+        renderData(hasilFilter);
+    }
+
+    function pilihKategori(namaKategori, tombol) {
+        kategoriAktif = namaKategori;
+        document.querySelectorAll('.btn-cat').forEach(btn => btn.classList.remove('active'));
+        tombol.classList.add('active');
+        updateTampilan();
+    }
+
+    function copyCode(btn) {
+        const codeText = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(codeText);
+        
+        const originalText = btn.innerText;
+        btn.innerText = "Copied!";
+        setTimeout(() => {
+            btn.innerText = originalText;
+        }, 1500);
+    }
+
+    // Jalankan saat pertama load
+    renderData(databaseTag);
+
+</script>
+
+</body>
+</html>
